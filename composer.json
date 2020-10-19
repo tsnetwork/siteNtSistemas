@@ -1,13 +1,19 @@
 {
-  "name": "upinside/fsphp",
-  "description": "Formação Full Stack PHP Developer",
+  "name": "ntsistemasweb/site_nt",
+  "description": "Site da NT Sistemas Web",
   "minimum-stability": "stable",
   "authors": [
     {
-      "name": "Robson V. Leite",
-      "email": "cursos@upinside.com.br",
-      "homepage": "https://www.upinside.com.br",
+      "name": "Gabriel Christ da Silva",
+      "email": "gabriel.christ@ntsistemasweb.dev.br",
+      "homepage": "https://www.ntsistemasweb.dev.br",
       "role": "Developer"
+    },
+    {
+      "name": "Thiago Silva da Silva",
+      "email": "thiago.silva@ntsistemasweb.dev.br",
+      "homepage": "https://www.ntsistemasweb.dev.br",
+      "role": "CEO"
     }
   ],
   "config": {
