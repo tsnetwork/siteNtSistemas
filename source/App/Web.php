@@ -4,6 +4,7 @@ namespace Source\App;
 
 use Source\Core\Connect;
 use Source\Core\Controller;
+use Source\Models\Contact;
 
 /**
  * Web Controller
@@ -25,8 +26,53 @@ class Web extends Controller
      */
     public function home(): void
     {
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " | " . CONF_SITE_TITLE,
+            CONF_SITE_DESC,
+            url(),
+            theme("/assets/img/about.jpg")
+        );
+        echo $this->view->render("views/home", [
+            "head" => $head,
+        ]);
+    }
 
-        echo $this->view->render("views/home", []);
+    public function contact(array $data): void
+    {
+        if (!csrfVerify($data)) {
+            $json['message'] = $this->message->error("Formulário Inválido")
+                ->dismissable()
+                ->render();
+            echo json_encode($json);
+            return;
+        }
+        if (in_array("", $data)) {
+            $json['message'] = $this->message->warning("Insira todos os dados para fazer contato")
+                ->dismissable()
+                ->render();
+            echo json_encode($json);
+            return;
+        }
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $json['message'] = $this->message->error("O e-mail inserido é inválido")
+                ->dismissable()
+                ->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $contato = (new Contact());
+
+        if ($contato->contact($data['name'], $data['email'], $data['subject'], $data['message'])) {
+            $json['message'] = $this->message->success("Seu contato foi realizado com sucesso")
+                ->dismissable()
+                ->render();
+        } else {
+            $json['message'] = $contato->message()->dismissable()->render();
+        }
+
+        echo json_encode($json);
+        return;
     }
 /*
 /**

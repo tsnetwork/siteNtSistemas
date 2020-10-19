@@ -18,6 +18,9 @@ class Message
     /** @var string */
     private $type;
 
+    /** @var bool */
+    private $dismiss;
+
     /**
      * @return string
      */
@@ -85,13 +88,23 @@ class Message
         $this->text = $this->filter($message);
         return $this;
     }
-
+    public function dismissable(): Message
+    {
+        $this->dismiss = true;
+        return $this;
+    }
     /**
      * @return string
      */
     public function render(): string
     {
-        return "<div class='" . CONF_MESSAGE_CLASS . " {$this->getType()}'>{$this->getText()}</div>";
+        return "<div class='" . CONF_MESSAGE_CLASS
+            . " {$this->getType()}' role='alert'>{$this->getText()}"
+            . (($this->dismiss) ? "
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                </button>" : "")
+            . "</div>";
     }
 
     /**

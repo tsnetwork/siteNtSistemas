@@ -139,7 +139,7 @@ function strLimitChars(string $string, int $limit, string $pointer = "..."): str
  */
 function url(string $path = null): string
 {
-    if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
+    if (strpos($_SERVER['HTTP_HOST'], "localhost") >= 0) {
         if ($path) {
             return CONF_URL_TEST . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
@@ -159,19 +159,33 @@ function urlBack(): string
     return ($_SERVER['HTTP_REFERER'] ?? url());
 }
 
-function theme(string $path = null): string
+function theme(string $themeFolder = CONF_VIEW_THEME, string $path = null): string
 {
     if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
         if ($path) {
-            return CONF_URL_TEST . "/themes/" . CONF_VIEW_THEME . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+            return CONF_URL_TEST . "/themes/{$themeFolder}/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
-        return CONF_URL_TEST . "/themes/" . CONF_VIEW_THEME;
+        return CONF_URL_TEST . "/themes/{$themeFolder}";
     }
 
     if ($path) {
-        return CONF_URL_BASE . "/themes/" . CONF_VIEW_THEME . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+        return CONF_URL_BASE . "/themes/{$themeFolder}/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
     }
-    return CONF_URL_BASE . "/themes/" . CONF_VIEW_THEME;
+    return CONF_URL_BASE . "/themes/{$themeFolder}";
+}
+function asset(string $path = null): string
+{
+    if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
+        if ($path) {
+            return CONF_URL_TEST . "/shared/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+        }
+        return CONF_URL_TEST . "/shared/";
+    }
+
+    if ($path) {
+        return CONF_URL_BASE . "/shared/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+    }
+    return CONF_URL_BASE . "/shared/";
 }
 
 /**

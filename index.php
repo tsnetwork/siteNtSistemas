@@ -18,6 +18,16 @@ $route   = new Router(url(), ":");
  */
 $route->namespace('Source\App');
 $route->get("/", "Web:home");
+$route->post("/contato", "Web:contact");
+
+/**
+ * ADMIN ROUTES
+ */
+$route->namespace('Source\App');
+$route->group("/admin");
+$route->get("/", "Admin:home");
+$route->get("/contatos", "Admin:contacts");
+$route->get("/contatos/{page}", "Admin:contacts");
 
 /*
  * ROUTE

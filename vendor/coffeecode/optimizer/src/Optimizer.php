@@ -22,9 +22,9 @@ class Optimizer extends MetaTags
     {
         $this->data($title, $description, $url, $image);
 
-        $title = $this->filter($title);
+        $title       = $this->filter($title);
         $description = $this->filter($description);
-        
+
         $this->buildTag("title", $title);
         $this->buildMeta("name", ["description" => $description]);
         $this->buildMeta("name", ["robots" => ($follow ? "index, follow" : "noindex, nofollow")]);
@@ -32,18 +32,18 @@ class Optimizer extends MetaTags
 
         foreach ($this->tags as $meta => $prefix) {
             $this->buildMeta($meta, [
-                "{$prefix}:title" => $title,
+                "{$prefix}:title"       => $title,
                 "{$prefix}:description" => $description,
-                "{$prefix}:url" => $url,
-                "{$prefix}:image" => $image
+                "{$prefix}:url"         => $url,
+                "{$prefix}:image"       => $image,
             ]);
         }
 
         $this->buildMeta("itemprop", [
-            "name" => $title,
+            "name"        => $title,
             "description" => $description,
-            "url" => $url,
-            "image" => $image
+            "url"         => $url,
+            "image"       => $image,
         ]);
 
         return $this;
@@ -59,8 +59,8 @@ class Optimizer extends MetaTags
     public function publisher(string $fbPage, string $fbAuthor, string $plusPage, string $plusAuthor = null): Optimizer
     {
         $this->buildMeta("property", [
-            "article:author" => "https://www.facebook.com/{$fbAuthor}",
-            "article:publisher" => "https://www.facebook.com/{$fbPage}"
+            "article:author"    => "https://www.facebook.com/{$fbAuthor}",
+            "article:publisher" => "https://www.facebook.com/{$fbPage}",
         ]);
 
         if ($plusAuthor) {
@@ -82,13 +82,13 @@ class Optimizer extends MetaTags
      */
     public function openGraph(string $siteName, string $locale = "pt_BR", string $schema = "article"): Optimizer
     {
-        $prefix = "og";
+        $prefix   = "og";
         $siteName = $this->filter($siteName);
 
         $this->buildMeta("property", [
-            "{$prefix}:type" => $schema,
+            "{$prefix}:type"      => $schema,
             "{$prefix}:site_name" => $siteName,
-            "{$prefix}:locale" => $locale
+            "{$prefix}:locale"    => $locale,
         ]);
 
         return $this;
@@ -104,13 +104,13 @@ class Optimizer extends MetaTags
     public function twitterCard(string $creator, string $site, string $domain, string $card = null): Optimizer
     {
         $prefix = "twitter";
-        $card = ($card ?? "summary_large_image");
+        $card   = ($card ?? "summary_large_image");
 
         $this->buildMeta("name", [
-            "{$prefix}:card" => $card,
-            "{$prefix}:site" => $site,
+            "{$prefix}:card"    => $card,
+            "{$prefix}:site"    => $site,
             "{$prefix}:creator" => $creator,
-            "{$prefix}:domain" => $domain
+            "{$prefix}:domain"  => $domain,
         ]);
 
         return $this;
@@ -121,7 +121,7 @@ class Optimizer extends MetaTags
      * @param array|null $admins
      * @return Optimizer
      */
-    public function facebook(string $appId = null, array $admins = null): Optimizer
+    public function facebook(string $appId = null, array $admins = []): Optimizer
     {
         if ($appId) {
             $fb = $this->meta->addChild("meta");

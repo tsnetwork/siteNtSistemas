@@ -55,10 +55,10 @@ class Paginator
      */
     public function __construct(string $link = null, string $title = null, array $first = null, array $last = null)
     {
-        $this->link = ($link ?? "?page=");
+        $this->link  = ($link ?? "?page=");
         $this->title = ($title ?? "Página");
         $this->first = ($first ?? ["Primeira página", "<<"]);
-        $this->last = ($last ?? ["Última página", ">>"]);
+        $this->last  = ($last ?? ["Última página", ">>"]);
     }
 
     /**
@@ -70,14 +70,14 @@ class Paginator
      */
     public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): void
     {
-        $this->rows = $this->toPositive($rows);
+        $this->rows  = $this->toPositive($rows);
         $this->limit = $this->toPositive($limit);
         $this->range = $this->toPositive($range);
-        $this->pages = (int)ceil($this->rows / $this->limit);
-        $this->page = ($page <= $this->pages ? $this->toPositive($page) : $this->pages);
+        $this->pages = (int) ceil($this->rows / $this->limit);
+        $this->page  = ($page <= $this->pages ? $this->toPositive($page) : $this->pages);
 
         $this->offset = (($this->page * $this->limit) - $this->limit >= 0 ? ($this->page * $this->limit) - $this->limit : 0);
-        $this->hash = (!empty($hash) ? "#{$hash}" : null);
+        $this->hash   = (!empty($hash) ? "#{$hash}" : null);
 
         if ($this->rows && $this->offset >= $this->rows) {
             header("Location: {$this->link}" . ceil($this->rows / $this->limit));
@@ -130,7 +130,7 @@ class Paginator
             $paginator = "<nav class=\"{$this->class}\">";
             $paginator .= $this->firstPage($fixedFirstAndLastPage);
             $paginator .= $this->beforePages();
-            $paginator .= "<span class=\"{$this->class}_item {$this->class}_active\">{$this->page}</span>";
+            $paginator .= "<li class='active'><a >{$this->page}</a></li>";
             $paginator .= $this->afterPages();
             $paginator .= $this->lastPage($fixedFirstAndLastPage);
             $paginator .= "</nav>";
@@ -148,7 +148,7 @@ class Paginator
         $before = null;
         for ($iPag = $this->page - $this->range; $iPag <= $this->page - 1; $iPag++):
             if ($iPag >= 1):
-                $before .= "<a class='{$this->class}_item' title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}\">{$iPag}</a>";
+                $before .= "<li><a class='{$this->class}_item' title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}\">{$iPag}</a></li>";
             endif;
         endfor;
 
@@ -163,7 +163,7 @@ class Paginator
         $after = null;
         for ($dPag = $this->page + 1; $dPag <= $this->page + $this->range; $dPag++):
             if ($dPag <= $this->pages):
-                $after .= "<a class='{$this->class}_item' title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}\">{$dPag}</a>";
+                $after .= "<li><a class='{$this->class}_item' title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}\">{$dPag}</a></li>";
             endif;
         endfor;
 
@@ -173,7 +173,7 @@ class Paginator
     public function firstPage($fixedFirstAndLastPage): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != 1) {
-            return "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
+            return "<li><a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a><li>";
         }
         return null;
     }
@@ -181,7 +181,7 @@ class Paginator
     public function lastPage($fixedFirstAndLastPage): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != $this->pages) {
-            return "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
+            return "<li><a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a></li>";
         }
         return null;
     }

@@ -1,4 +1,4 @@
-<?php $v->layout("layout");?>
+<?php $v->layout("_theme");?>
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top ">
   <div class="container-fluid">
@@ -37,7 +37,7 @@
         <div><a href="#about" class="btn-get-started scrollto">Saiba mais</a></div>
       </div>
       <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
-        <img src="<?=theme("assets/img/hero-img.png")?>" class="img-fluid animated" alt="">
+        <img src="<?=theme(CONF_VIEW_THEME, "assets/img/hero-img.png")?>" class="img-fluid animated" alt="">
       </div>
     </div>
   </div>
@@ -52,10 +52,10 @@
 
       <div class="row">
         <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="150">
-          <img src="assets/img/about.jpg" class="img-fluid" alt="">
+          <img src="<?=theme(CONF_VIEW_THEME, "assets/img/about.jpg")?>" class="img-fluid" alt="">
         </div>
         <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
-          <img src="./assets/img/theme/logo.png" width="500px" alt="">
+          <img src="<?=theme(CONF_VIEW_THEME, "/assets/img/theme/logo.png")?>" width="500px" alt="">
           <p></p>
 
           <p class="font-italic">
@@ -87,7 +87,7 @@
 
       <div class="section-title">
         <h2>Serviços</h2>
-        <p>Trabalhamos com desenvolvimento de sites,sistemas web, SaaS, E-commerce e Marketplace, utilizando o que há
+        <p>Trabalhamos com desenvolvimento de sites, sistemas web, SaaS, E-commerce e Marketplace, utilizando o que há
           de mais moderno em Web</p>
       </div>
 
@@ -95,7 +95,7 @@
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
           <div class="icon-box iconbox-blue">
             <div class="icon">
-              <img src="<?=theme("assets/img/theme/site.svg")?>" width="200px" alt="">
+              <img src="<?=theme(CONF_VIEW_THEME, "assets/img/theme/site.svg")?>" width="200px" alt="">
             </div>
             <h4><a href="">Sites</a></h4>
             <p>Sistes dinâmicos 100% personalizados e layouts exclusivos</p>
@@ -105,7 +105,7 @@
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
           <div class="icon-box iconbox-orange ">
             <div class="icon">
-              <img src="<?=theme("assets/img/theme/ecommerce.svg")?>" width="150px" alt="">
+              <img src="<?=theme(CONF_VIEW_THEME, "assets/img/theme/ecommerce.svg")?>" width="150px" alt="">
 
             </div>
             <h4><a href="">E-Commerces</a></h4>
@@ -141,14 +141,13 @@
       <div class="row">
 
         <div class="col-lg-3 col-md-6 footer-contact">
-          <img src="<?=theme("assets/img/theme/logo.png")?>" width="200px" alt="">
+          <img src="<?=theme(CONF_VIEW_THEME, "assets/img/theme/logo.png")?>" width="200px" alt="">
           <br><br><br>
           <p>
-            Rua Mário Juarez de Oliveira,327 <br>
-            Porto Alegre, RS 9145372<br>
-            Brasil <br><br>
-            <strong>Fone:</strong> +55 51 2500-7412<br>
-            <strong>Email:</strong>contato@ntsistemasweb.dev.br<br>
+            <?=CONF_SITE_ADDR_STREET?>, <?=CONF_SITE_ADDR_NUMBER?> <?=(!empty(CONF_SITE_ADDR_COMPLEMENT) ? " | " . CONF_SITE_ADDR_COMPLEMENT : "")?><br>
+            <?=CONF_SITE_ADDR_CITY?>/<?=CONF_SITE_ADDR_STATE?> - <?=CONF_SITE_ADDR_ZIPCODE?><br><br>
+            <strong>Fone:</strong> <?=CONF_SITE_PHONE?><br>
+            <strong>Email:</strong> <?=CONF_MAIL_SUPPORT?><br>
           </p>
         </div>
 

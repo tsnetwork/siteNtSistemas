@@ -121,7 +121,7 @@ abstract class Model
      * @param string $columns
      * @return Model|mixed
      */
-    public function find(?string $termms = null, ?string $params = null, string $columns = "*")
+    public function find(?string $terms = null, ?string $params = null, string $columns = "*")
     {
         if ($terms) {
             $this->query = "SELECT {$columns} FROM " . static::$entity . " WHERE {$terms}";
@@ -132,6 +132,15 @@ abstract class Model
         return $this;
     }
 
+    /**
+     * @param int $id
+     * @param string $columns
+     * @return null|mixed|Model
+     */
+    public function findById(int $id, string $columns = "*"): ?Model
+    {
+        return $this->find("id = :id", "id={$id}", $columns)->fetch();
+    }
     /**
      * @param string $columnOrder
      * @return Model

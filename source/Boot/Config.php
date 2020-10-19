@@ -1,23 +1,17 @@
 <?php
 
 /**
- * ERROR SHOW
- */
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
-
-/**
  * DATABASE
  */
-define("CONF_DB_HOST", "db");
+define("CONF_DB_HOST", "localhost");
 define("CONF_DB_USER", "root");
-define("CONF_DB_PASS", "root");
-define("CONF_DB_NAME", "fullstackphp");
+define("CONF_DB_PASS", "P@ssw0rd");
+define("CONF_DB_NAME", "site");
 
 /**
  * PROJECT URLs
  */
-define("CONF_URL_BASE", "https://www.ntsistemasweb.dev.br");
+define("CONF_URL_BASE", "http://192.168.0.251/site");
 define("CONF_URL_TEST", "http://www.localhost/site");
 define("CONF_URL_ADMIN", "/admin");
 
@@ -25,27 +19,35 @@ define("CONF_URL_ADMIN", "/admin");
  * SITE
  */
 define("CONF_SITE_NAME", "NT Sistemas Web");
-define("CONF_SITE_TITLE", "Gerencie suas contas com o melhor café");
+define("CONF_SITE_TITLE", "Soluções Tecnológicas para o seu Negócio");
 define(
     "CONF_SITE_DESC",
-    "O CafeControl é um gerenciador de contas simples, poderoso e gratuito.
-    O prazer de tomar um café e ter o controle total de suas contas."
+    "A NT sistemas visa acompanhar as necessidades das empresas no mercado de desenvolvimento,
+     aprimorando e estreitando relacionamento com seus clientes,
+     acompanhando seus processos, estratégias e melhorando seus resultados."
 );
 define("CONF_SITE_LANG", "pt_BR");
-define("CONF_SITE_DOMAIN", "ntsistemasweb.dev.br");
+define("CONF_SITE_DOMAIN", "192.168.0.251");
+define("CONF_SITE_ADDR_STREET", "Rua Mário Juarez de Oliveira");
+define("CONF_SITE_ADDR_NUMBER", "327");
+define("CONF_SITE_ADDR_COMPLEMENT", "");
+define("CONF_SITE_ADDR_CITY", "Porto Alegre");
+define("CONF_SITE_ADDR_STATE", "RS");
+define("CONF_SITE_ADDR_ZIPCODE", "91450-372");
+define("CONF_SITE_PHONE", "+55 51 2500-7412");
 
 /**
  * SOCIAL
  */
-define("CONF_SOCIAL_TWITTER_CREATOR", "@robsonvleite");
-define("CONF_SOCIAL_TWITTER_PUBLISHER", "@robsonvleite");
-define("CONF_SOCIAL_FACEBOOK_APP", "626590460695980");
-define("CONF_SOCIAL_FACEBOOK_PAGE", "upinside");
-define("CONF_SOCIAL_FACEBOOK_AUTHOR", "robsonvleiteoficial");
-define("CONF_SOCIAL_GOOGLE_PAGE", "107305124528362639842");
-define("CONF_SOCIAL_GOOGLE_AUTHOR", "103958419096641225872");
-define("CONF_SOCIAL_INSTAGRAM_PAGE", "robsonvleite");
-define("CONF_SOCIAL_YOUTUBE_PAGE", "upinside");
+define("CONF_SOCIAL_TWITTER_CREATOR", "");
+define("CONF_SOCIAL_TWITTER_PUBLISHER", "");
+define("CONF_SOCIAL_FACEBOOK_APP", "");
+define("CONF_SOCIAL_FACEBOOK_PAGE", "ntsistemasweb");
+define("CONF_SOCIAL_FACEBOOK_AUTHOR", "ntsistemasweb");
+define("CONF_SOCIAL_GOOGLE_PAGE", "");
+define("CONF_SOCIAL_GOOGLE_AUTHOR", "");
+define("CONF_SOCIAL_INSTAGRAM_PAGE", "");
+define("CONF_SOCIAL_YOUTUBE_PAGE", "");
 
 /**
  * DATES
@@ -64,11 +66,12 @@ define("CONF_PASSWD_OPTION", ["cost" => 10]);
 /**
  * MESSAGE
  */
-define("CONF_MESSAGE_CLASS", "trigger");
-define("CONF_MESSAGE_INFO", "info");
-define("CONF_MESSAGE_SUCCESS", "success");
-define("CONF_MESSAGE_WARNING", "warning");
-define("CONF_MESSAGE_ERROR", "error");
+define("CONF_MESSAGE_CLASS", "alert");
+define("CONF_MESSAGE_INFO", "alert-info");
+define("CONF_MESSAGE_SUCCESS", "alert-success");
+define("CONF_MESSAGE_WARNING", "alert-warning");
+define("CONF_MESSAGE_ERROR", "alert-danger");
+define("CONF_MESSAGE_DISMISSIBLE", "alert-dismissible");
 
 /**
  * VIEW
@@ -76,6 +79,7 @@ define("CONF_MESSAGE_ERROR", "error");
 define("CONF_VIEW_PATH", __DIR__ . "/../../shared/views");
 define("CONF_VIEW_EXT", "php");
 define("CONF_VIEW_THEME", "site");
+define("CONF_VIEW_THEME_ADMIN", "admin");
 
 /**
  * UPLOAD
@@ -95,12 +99,12 @@ define("CONF_IMAGE_QUALITY", ["jpg" => 75, "png" => 5]);
 /**
  * MAIL
  */
-define("CONF_MAIL_HOST", "smtp.sendgrid.net");
+define("CONF_MAIL_HOST", "smtp.umbler.com");
 define("CONF_MAIL_PORT", "587");
-define("CONF_MAIL_USER", "apikey");
-define("CONF_MAIL_PASS", "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");
-define("CONF_MAIL_SENDER", ["name" => "Gabriel C. da Silva", "address" => "gabriel.christ@ntsistemasweb.dev.br"]);
-define("CONF_MAIL_SUPPORT", "gabriel.christ@ntsistemasweb.dev.br");
+define("CONF_MAIL_USER", "ntsistemasweb@ntsistemasweb.dev.br");
+define("CONF_MAIL_PASS", "P@ssw0rd");
+define("CONF_MAIL_SENDER", ["name" => "NT Sistemas Web", "address" => "ntsistemasweb@ntsistemasweb.dev.br"]);
+define("CONF_MAIL_SUPPORT", "equipe.sistemas@ntsistemasweb.dev.br");
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
 define("CONF_MAIL_OPTION_AUTH", true);

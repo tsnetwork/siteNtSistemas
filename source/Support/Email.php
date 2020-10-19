@@ -2,8 +2,8 @@
 
 namespace Source\Support;
 
-use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * FSPHP | Class Email
@@ -27,21 +27,21 @@ class Email
      */
     public function __construct()
     {
-        $this->mail = new PHPMailer(true);
-        $this->data = new \stdClass();
+        $this->mail    = new PHPMailer(true);
+        $this->data    = new \stdClass();
         $this->message = new Message();
 
         //setup
         $this->mail->isSMTP();
         $this->mail->setLanguage(CONF_MAIL_OPTION_LANG);
         $this->mail->isHTML(CONF_MAIL_OPTION_HTML);
-        $this->mail->SMTPAuth = CONF_MAIL_OPTION_AUTH;
+        $this->mail->SMTPAuth   = CONF_MAIL_OPTION_AUTH;
         $this->mail->SMTPSecure = CONF_MAIL_OPTION_SECURE;
-        $this->mail->CharSet = CONF_MAIL_OPTION_CHARSET;
+        $this->mail->CharSet    = CONF_MAIL_OPTION_CHARSET;
 
         //auth
-        $this->mail->Host = CONF_MAIL_HOST;
-        $this->mail->Port = CONF_MAIL_PORT;
+        $this->mail->Host     = CONF_MAIL_HOST;
+        $this->mail->Port     = CONF_MAIL_PORT;
         $this->mail->Username = CONF_MAIL_USER;
         $this->mail->Password = CONF_MAIL_PASS;
     }
@@ -58,7 +58,7 @@ class Email
         $this->data->subject = $subject;
         $this->data->message = $message;
         $this->data->toEmail = $toEmail;
-        $this->data->toName = $toName;
+        $this->data->toName  = $toName;
         return $this;
     }
 
@@ -67,7 +67,17 @@ class Email
         $this->data->attach[$filePath] = $fileName;
         return $this;
     }
-
+    /**
+     * @param string $replyToEmail
+     * @param string $replyToName
+     *
+     * @return PHPMailer
+     */
+    public function replyTo(string $replyToEmail, string $replyToName): Email
+    {
+        $this->data->replyTo[$replyToEmail] = $replyToName;
+        return $this;
+    }
     /**
      * @param $fromEmail
      * @param $fromName
@@ -80,12 +90,12 @@ class Email
             return false;
         }
 
-        if (!is_email($this->data->toEmail)) {
+        if (!isEmail($this->data->toEmail)) {
             $this->message->warning("O e-mail de destinatário não é válido");
             return false;
         }
 
-        if (!is_email($fromEmail)) {
+        if (!isEmail($fromEmail)) {
             $this->message->warning("O e-mail de remetente não é válido");
             return false;
         }
@@ -99,6 +109,13 @@ class Email
             if (!empty($this->data->attach)) {
                 foreach ($this->data->attach as $path => $name) {
                     $this->mail->addAttachment($path, $name);
+                }
+            }
+            if (!empty($this->data->replyTo)) {
+                foreach ($this->data->replyTo as $email => $name) {
+                    if (isEmail($email)) {
+                        $this->mail->addReplyTo($email, $name);
+                    }
                 }
             }
 

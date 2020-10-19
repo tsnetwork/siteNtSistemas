@@ -45,31 +45,6 @@ class User extends Model
     }
 
     /**
-     * @param string $terms
-     * @param string $params
-     * @param string $columns
-     * @return null|User
-     */
-    public function find(string $terms, string $params, string $columns = "*"): ?User
-    {
-        $find = $this->read("SELECT {$columns} FROM " . self::$entity . " WHERE {$terms}", $params);
-        if ($this->fail() || !$find->rowCount()) {
-            return null;
-        }
-        return $find->fetchObject(__CLASS__);
-    }
-
-    /**
-     * @param int $id
-     * @param string $columns
-     * @return null|User
-     */
-    public function findById(int $id, string $columns = "*"): ?User
-    {
-        return $this->find("id = :id", "id={$id}", $columns);
-    }
-
-    /**
      * @param string $email
      * @param string $columns
      * @return null|User
@@ -77,23 +52,6 @@ class User extends Model
     public function findByEmail(string $email, string $columns = "*"): ?User
     {
         return $this->find("email = :email", "email={$email}", $columns);
-    }
-
-    /**
-     * @param int $limit
-     * @param int $offset
-     * @param string $columns
-     * @return array|null
-     */
-    public function all(int $limit = 30, int $offset = 0, string $columns = "*"): ?array
-    {
-        $all = $this->read("SELECT {$columns} FROM " . self::$entity . " LIMIT :limit OFFSET :offset",
-            "limit={$limit}&offset={$offset}");
-
-        if ($this->fail() || !$all->rowCount()) {
-            return null;
-        }
-        return $all->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
     }
 
     /**
@@ -106,7 +64,7 @@ class User extends Model
             return null;
         }
 
-        if (!is_email($this->email)) {
+        if (!isEmail($this->email)) {
             $this->message->warning("O e-mail informado não tem um formato válido");
             return null;
         }
