@@ -66,7 +66,7 @@ $(function () {
     $("form:not(.ajax_off)").submit(function (e) {
         e.preventDefault();
         var form = $(this);
-        var load = $(".ajax_load");
+        var load = $(".loading");
         var flashClass = "ajax_response";
         var flash = $("." + flashClass);
 
@@ -75,7 +75,7 @@ $(function () {
             type: "POST",
             dataType: "json",
             beforeSend: function () {
-                load.fadeIn(200).css("display", "flex");
+                load.fadeIn(200).css("display", "inline-block");
             },
             success: function (response) {
                 //redirect
