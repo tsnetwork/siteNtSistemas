@@ -20,7 +20,7 @@ if (strpos(url(), 'localhost')) {
     }
 
     //Minify CSS
-    $minCss->minify(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/style.css");
+    $minCss->minify(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/styles.css");
 
     /**
      * JS
@@ -42,5 +42,4 @@ if (strpos(url(), 'localhost')) {
 
     //Minify JS
     $minJs->minify(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/scripts.js");
-
 }
