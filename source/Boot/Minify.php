@@ -1,7 +1,7 @@
 <?php
 
 if (strpos(url(), 'localhost')) {
-
+    $dirPath = realpath(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/");
     /**
      * CSS
      */
@@ -11,16 +11,16 @@ if (strpos(url(), 'localhost')) {
     $minCss->add(__DIR__ . "/../../shared/styles/bootstrap.min.css");
 
     //theme CSS
-    $cssDir = scandir(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/css");
+    $cssDir = scandir($dirPath . "/css");
     foreach ($cssDir as $css) {
-        $cssFile = __DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/css/{$css}";
+        $cssFile = $dirPath . "/css/{$css}";
         if (is_file($cssFile) && pathinfo($cssFile)['extension'] == "css") {
             $minCss->add($cssFile);
         }
     }
 
     //Minify CSS
-    $minCss->minify(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/styles.css");
+    $minCss->minify($dirPath . "/style.css");
 
     /**
      * JS
@@ -32,14 +32,14 @@ if (strpos(url(), 'localhost')) {
     $minJs->add(__DIR__ . "/../../shared/scripts/bootstrap.bundle.min.js");
 
     //theme JS
-    $jsDir = scandir(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/js");
+    $jsDir = scandir($dirPath . "/js");
     foreach ($jsDir as $js) {
-        $jsFile = __DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/js/{$js}";
+        $jsFile = $dirPath . "/js/{$js}";
         if (is_file($jsFile) && pathinfo($jsFile)['extension'] == "js") {
             $minJs->add($jsFile);
         }
     }
 
     //Minify JS
-    $minJs->minify(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/assets/scripts.js");
+    $minJs->minify($dirPath . "/scripts.js");
 }

@@ -51,7 +51,7 @@ abstract class Minify
     /**
      * Init the minify class - optionally, code may be passed along already.
      */
-    public function __construct(/* $data = null, ... */)
+    public function __construct( /* $data = null, ... */)
     {
         // it's possible to add the source through the constructor as well ;)
         if (func_num_args()) {
@@ -66,7 +66,7 @@ abstract class Minify
      *
      * @return static
      */
-    public function add($data /* $data = null, ... */)
+    public function add($data/* $data = null, ... */)
     {
         // bogus "usage" of parameter $data: scrutinizer warns this variable is
         // not used (we're using func_get_args instead to support overloading),
@@ -86,7 +86,7 @@ abstract class Minify
 
             // load data
             $value = $this->load($data);
-            $key = ($data != $value) ? $data : count($this->data);
+            $key   = ($data != $value) ? $data : count($this->data);
 
             // replace CR linefeeds etc.
             // @see https://github.com/matthiasmullie/minify/pull/139
@@ -105,10 +105,10 @@ abstract class Minify
      * @param string|string[] $data
      *
      * @return static
-     * 
+     *
      * @throws IOException
      */
-    public function addFile($data /* $data = null, ... */)
+    public function addFile($data/* $data = null, ... */)
     {
         // bogus "usage" of parameter $data: scrutinizer warns this variable is
         // not used (we're using func_get_args instead to support overloading),
@@ -128,7 +128,7 @@ abstract class Minify
 
             // check if we can read the file
             if (!$this->canImportFile($path)) {
-                throw new IOException('The file "'.$path.'" could not be opened for reading. Check if PHP has enough permissions.');
+                throw new IOException('The file "' . $path . '" could not be opened for reading. Check if PHP has enough permissions.');
             }
 
             $this->add($path);
@@ -270,7 +270,7 @@ abstract class Minify
     {
         $processed = '';
         $positions = array_fill(0, count($this->patterns), -1);
-        $matches = array();
+        $matches   = array();
 
         while ($content) {
             // find first match for all patterns
@@ -315,16 +315,16 @@ abstract class Minify
             // only want to execute that one, since we're unsure if what the
             // other found was not inside what the first found)
             $discardLength = min($positions);
-            $firstPattern = array_search($discardLength, $positions);
-            $match = $matches[$firstPattern][0][0];
+            $firstPattern  = array_search($discardLength, $positions);
+            $match         = $matches[$firstPattern][0][0];
 
             // execute the pattern that matches earliest in the content string
             list($pattern, $replacement) = $this->patterns[$firstPattern];
-            $replacement = $this->replacePattern($pattern, $replacement, $content);
+            $replacement                 = $this->replacePattern($pattern, $replacement, $content);
 
             // figure out which part of the string was unmatched; that's the
             // part we'll execute the patterns on again next
-            $content = (string) substr($content, $discardLength);
+            $content   = (string) substr($content, $discardLength);
             $unmatched = (string) substr($content, strpos($content, $match) + strlen($match));
 
             // move the replaced part to $processed and prepare $content to
@@ -394,9 +394,9 @@ abstract class Minify
                 return $match[0];
             }
 
-            $count = count($minifier->extracted);
-            $placeholder = $match[1].$placeholderPrefix.$count.$match[1];
-            $minifier->extracted[$placeholder] = $match[1].$match[2].$match[1];
+            $count                             = count($minifier->extracted);
+            $placeholder                       = $match[1] . $placeholderPrefix . $count . $match[1];
+            $minifier->extracted[$placeholder] = $match[1] . $match[2] . $match[1];
 
             return $placeholder;
         };
@@ -413,7 +413,7 @@ abstract class Minify
          * considered as escape-char (times 2) and to get it in the regex,
          * escaped (times 2)
          */
-        $this->registerPattern('/(['.$chars.'])(.*?(?<!\\\\)(\\\\\\\\)*+)\\1/s', $callback);
+        $this->registerPattern('/([' . $chars . '])(.*?(?<!\\\\)(\\\\\\\\)*+)\\1/s', $callback);
     }
 
     /**
@@ -473,7 +473,7 @@ abstract class Minify
     protected function openFileForWriting($path)
     {
         if (($handler = @fopen($path, 'w')) === false) {
-            throw new IOException('The file "'.$path.'" could not be opened for writing. Check if PHP has enough permissions.');
+            throw new IOException('The file "' . $path . '" could not be opened for writing. Check if PHP has enough permissions.');
         }
 
         return $handler;
@@ -491,7 +491,7 @@ abstract class Minify
     protected function writeToFile($handler, $content, $path = '')
     {
         if (($result = @fwrite($handler, $content)) === false || ($result < strlen($content))) {
-            throw new IOException('The file "'.$path.'" could not be written to. Check your disk space and file permissions.');
+            throw new IOException('The file "' . $path . '" could not be written to. Check your disk space and file permissions.');
         }
     }
 }

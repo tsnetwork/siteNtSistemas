@@ -30,7 +30,7 @@ class Web extends Controller
             CONF_SITE_NAME . " | " . CONF_SITE_TITLE,
             CONF_SITE_DESC,
             url(),
-            theme("/assets/img/about.jpg")
+            theme(CONF_VIEW_THEME, "/assets/img/about.jpg")
         );
         echo $this->view->render("views/home", [
             "head" => $head,
