@@ -1,0 +1,62 @@
+a[disabled]{
+    pointer-events: none;
+}
+.user-card {
+    padding: 0px 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+}
+
+.user-card .user-card-image {
+    margin: 0px 10px;
+    padding: 5px;
+    border-right: 1px solid darkgray;
+}
+
+.user-card .user-card-body {
+    margin: 0px 5px;
+}
+
+.user-card .user-card-footer {
+    width: auto;
+    margin: 5px 10px;
+    padding: 5px 10px 0 10px;
+}
+
+.user-image-div{
+    top: 0px;
+    left: 0px;
+}
+
+.user-image{
+    width: 100px;
+    height: 100px;
+}
+
+.edit-icon{
+    
+    position: absolute;
+    top: 60px;
+    width: 100px;
+    height: 50px;
+    opacity: 0%;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    background-color: black;
+    
+}
+
+.edit-icon>i{
+    margin-top: 10%;
+}
+
+.edit-icon:hover{
+    opacity: 50%;
+    cursor: pointer;
+}
+
+input[type='file']{
+    display:none;
+}

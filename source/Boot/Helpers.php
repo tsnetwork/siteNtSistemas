@@ -159,6 +159,35 @@ function urlBack(): string
     return ($_SERVER['HTTP_REFERER'] ?? url());
 }
 
+/**
+ * @param string $url
+ */
+function redirect(string $url): void
+{
+    header("HTTP/1.1 302 Redirect");
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        header("Location: {$url}");
+        exit;
+    }
+    if (filter_input(INPUT_GET, "route", FILTER_DEFAULT) != $url) {
+        $location = url($url);
+        header("Location: {$location}");
+        exit;
+    }
+}
+
+/**
+ * ##################
+ * ###   ASSETS   ###
+ * ##################
+ */
+
+/**
+ * @param string $themeFolder
+ * @param string|null $path
+ *
+ * @return string
+ */
 function theme(string $themeFolder = CONF_VIEW_THEME, string $path = null): string
 {
     if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
@@ -173,6 +202,12 @@ function theme(string $themeFolder = CONF_VIEW_THEME, string $path = null): stri
     }
     return CONF_URL_BASE . "/themes/{$themeFolder}";
 }
+
+/**
+ * @param string|null $path
+ *
+ * @return string
+ */
 function asset(string $path = null): string
 {
     if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
@@ -189,21 +224,17 @@ function asset(string $path = null): string
 }
 
 /**
- * @param string $url
+ * @param string $image
+ * @param int $width
+ * @param int|null $height
+ * @return string
  */
-function redirect(string $url): void
+function image(string $image, int $width, int $height = null): string
 {
-    header("HTTP/1.1 302 Redirect");
-    if (filter_var($url, FILTER_VALIDATE_URL)) {
-        header("Location: {$url}");
-        exit;
-    }
-    if (filter_input(INPUT_GET, "route", FILTER_DEFAULT) != $url) {
-        $location = url($url);
-        header("Location: {$location}");
-        exit;
-    }
-
+    $path = (mb_strpos($image, CONF_UPLOAD_DIR . "/") === 0 ?
+        mb_substr($image, mb_strlen(CONF_UPLOAD_DIR . "/"))
+        : $image);
+    return url() . "/" . (new \Source\Support\Thumb())->make($path, $width, $height);
 }
 
 /**
@@ -301,4 +332,16 @@ function csrfVerify($request): bool
         return false;
     }
     return true;
+}
+
+/**
+ * @return null|string
+ */
+function flash(): ?string
+{
+    $session = new \Source\Core\Session();
+    if ($flash = $session->flash()) {
+        return $flash;
+    }
+    return null;
 }

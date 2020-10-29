@@ -4,6 +4,7 @@ namespace Source\App;
 
 use Source\Core\Connect;
 use Source\Core\Controller;
+use Source\Models\Auth;
 use Source\Models\Contact;
 
 /**
@@ -73,6 +74,60 @@ class Web extends Controller
 
         echo json_encode($json);
         return;
+    }
+
+    /**
+     * ADMIN LOGIN
+     * @param array|null $data
+     * @return void
+     */
+    public function login(?array $data): void
+    {
+        if (Auth::user()) {
+            redirect('/admin');
+            return;
+        }
+        if (!empty($data['csrf'])) {
+            if (!csrfVerify($data)) {
+                $json['message'] = $this->message->error("Erro ao enviar, favor use o formulário")
+                    ->dismissable()
+                    ->render();
+                echo json_encode($json);
+                return;
+            }
+
+            if (empty($data['email']) || empty($data['password'])) {
+                $json['message'] = $this->message->warning("Informe seu email e senha para entrar")
+                    ->dismissable()
+                    ->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $save  = (!empty($data['save']) ? true : false);
+            $auth  = new Auth();
+            $login = $auth->login($data['email'], $data['password'], $save);
+
+            if ($login) {
+                $json['redirect'] = url("/admin");
+            } else {
+                $json['message'] = $auth->message()->render();
+            }
+
+            echo json_encode($json);
+            return;
+        }
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " | Login",
+            CONF_SITE_DESC,
+            url("/admin/login"),
+            "",
+            false
+        );
+        echo $this->view->render("views/login", [
+            "head"   => $head,
+            "cookie" => filter_input(INPUT_COOKIE, "authEmail", FILTER_VALIDATE_INT),
+        ]);
     }
 /*
 /**

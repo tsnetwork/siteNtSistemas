@@ -52,14 +52,14 @@ class Cropper
      */
     public function __construct(string $cachePath, int $quality = 75, int $compressor = 5, bool $webP = false)
     {
-        $this->cachePath = $cachePath;
-        $this->quality = $quality;
+        $this->cachePath  = $cachePath;
+        $this->quality    = $quality;
         $this->compressor = $compressor;
-        $this->webP = $webP;
+        $this->webP       = $webP;
 
         if (!file_exists($this->cachePath) || !is_dir($this->cachePath)) {
             if (!mkdir($this->cachePath, 0755, true)) {
-                throw new Exception("Could not create cache folder");
+                throw new Exception("Could not create cache folder at: " . $this->cachePath);
             }
         }
     }
@@ -97,7 +97,7 @@ class Cropper
     private function image(int $width, int $height = null): ?string
     {
         $imageWebP = "{$this->cachePath}/{$this->imageName}.webp";
-        $imageExt = "{$this->cachePath}/{$this->imageName}." . pathinfo($this->imagePath)['extension'];
+        $imageExt  = "{$this->cachePath}/{$this->imageName}." . pathinfo($this->imagePath)['extension'];
 
         if ($this->webP && file_exists($imageWebP) && is_file($imageWebP)) {
             return $imageWebP;
@@ -119,13 +119,13 @@ class Cropper
     protected function name(string $name, int $width = null, int $height = null): string
     {
         $filterName = filter_var(mb_strtolower(pathinfo($name)["filename"]), FILTER_SANITIZE_STRIPPED);
-        $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
-        $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
-        $trimName = trim(strtr(utf8_decode($filterName), utf8_decode($formats), $replace));
-        $name = str_replace(["-----", "----", "---", "--"], "-", str_replace(" ", "-", $trimName));
+        $formats    = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
+        $replace    = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
+        $trimName   = trim(strtr(utf8_decode($filterName), utf8_decode($formats), $replace));
+        $name       = str_replace(["-----", "----", "---", "--"], "-", str_replace(" ", "-", $trimName));
 
-        $hash = $this->hash($this->imagePath);
-        $widthName = ($width ? "-{$width}" : "");
+        $hash       = $this->hash($this->imagePath);
+        $widthName  = ($width ? "-{$width}" : "");
         $heightName = ($height ? "x{$height}" : "");
 
         return "{$name}{$widthName}{$heightName}-{$hash}";
@@ -167,7 +167,7 @@ class Cropper
     private function imageCache(int $width, int $height = null): ?string
     {
         list($src_w, $src_h) = getimagesize($this->imagePath);
-        $height = ($height ?? ($width * $src_h) / $src_w);
+        $height              = ($height ?? ($width * $src_h) / $src_w);
 
         $src_x = 0;
         $src_y = 0;
@@ -183,10 +183,10 @@ class Cropper
             $src_y = round(($src_h - ($src_h / $cmp_y * $cmp_x))); //2
         }
 
-        $src_x = (int)$src_x;
-        $src_h = (int)$src_h;
-        $src_y = (int)$src_y;
-        $src_y = (int)$src_y;
+        $src_x = (int) $src_x;
+        $src_h = (int) $src_h;
+        $src_y = (int) $src_y;
+        $src_y = (int) $src_y;
 
         if ($this->imageMime == "image/jpeg") {
             return $this->fromJpg($width, $height, $src_x, $src_y, $src_w, $src_h);
@@ -220,7 +220,7 @@ class Cropper
      */
     private function fromJpg(int $width, int $height, int $src_x, int $src_y, int $src_w, int $src_h): string
     {
-        $thumb = imagecreatetruecolor($width, $height);
+        $thumb  = imagecreatetruecolor($width, $height);
         $source = imagecreatefromjpeg($this->imagePath);
 
         imagecopyresampled($thumb, $source, 0, 0, $src_x, $src_y, $width, $height, $src_w, $src_h);
@@ -247,7 +247,7 @@ class Cropper
      */
     private function fromPng(int $width, int $height, int $src_x, int $src_y, int $src_w, int $src_h): string
     {
-        $thumb = imagecreatetruecolor($width, $height);
+        $thumb  = imagecreatetruecolor($width, $height);
         $source = imagecreatefrompng($this->imagePath);
 
         imagealphablending($thumb, false);

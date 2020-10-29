@@ -8,14 +8,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <?=$head?>
 
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/css/bootstrap.min.css")?>">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/css/font-awesome.min.css")?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/css/ionicons.min.css")?>">
+
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/css/AdminLTE.min.css")?>">
+  <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/style.css")?>">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/css/skin/skin-purple.min.css")?>">
@@ -35,26 +30,55 @@
 <body class="hold-transition skin-purple sidebar-mini">
 
   <div class="wrapper">
-    <?=$v->section('content');?>
+    <header class="main-header">
+      <!-- Navbar -->
+      <?=$v->insert("components/navbar")?>
+      <!-- /.navbar -->
+    </header>
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar">
+      <?=$v->insert("components/sidebar")?>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          <?=$title?>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?=url('/admin')?>"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active"><?=$title?></li>
+        </ol>
+      </section>
+
+      <?=$v->section('content');?>
+
+    </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Footer -->
+    <?=$v->insert("components/footer");?>
+
   </div>
   <!-- ./wrapper -->
 
-  <!-- jQuery 3 -->
-  <script src="<?=asset("/scripts/jquery.min.js")?>"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="<?=asset("/scripts/jquery-ui.min.js")?>"></script>
+ <!-- AdminLTE App -->
+ <script src="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/scripts.js")?>"></script>
+
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button);
   </script>
-  <!-- Bootstrap 3.3.7 -->
-  <script src="<?=asset("/scripts/bootstrap.min.js")?>"></script>
 
-  <!-- AdminLTE App -->
-  <script src="<?=theme(CONF_VIEW_THEME_ADMIN, "/assets/js/adminlte.min.js")?>"></script>
 
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
+  <?=$v->section('scripts')?>
+
 </body>
 
 </html>

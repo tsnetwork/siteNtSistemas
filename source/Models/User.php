@@ -3,6 +3,7 @@
 namespace Source\Models;
 
 use Source\Core\Model;
+use Source\Support\Upload;
 
 /**
  * FSPHP | Class User Active Record Pattern
@@ -17,12 +18,11 @@ class User extends Model
      */
     public function __construct()
     {
-        parent::__construct("users", ["id"], ["first_name", "last_name", "email", "password"]
-        );
+        parent::__construct("users", ["id"], ["name", "email", "password"]);
     }
 
     /**
-     * @param string $firstName
+     * @param string $name
      * @param string $lastName
      * @param string $email
      * @param string $password
@@ -30,17 +30,15 @@ class User extends Model
      * @return User
      */
     public function bootstrap(
-        string $firstName,
-        string $lastName,
+        string $name,
         string $email,
         string $password,
-        string $document = null
+        ?array $image = null
     ): User {
-        $this->first_name = $firstName;
-        $this->last_name  = $lastName;
-        $this->email      = $email;
-        $this->password   = $password;
-        $this->document   = $document;
+        $this->name     = $name;
+        $this->email    = $email;
+        $this->password = $password;
+        $this->image    = $image;
         return $this;
     }
 
@@ -51,29 +49,30 @@ class User extends Model
      */
     public function findByEmail(string $email, string $columns = "*"): ?User
     {
-        return $this->find("email = :email", "email={$email}", $columns);
+        $find = $this->find("email = :email", "email={$email}", $columns);
+        return $find->fetch();
     }
 
     /**
-     * @return null|User
+     * @return bool
      */
-    public function save(): ?User
+    public function save(): bool
     {
         if (!$this->required()) {
-            $this->message->warning("Nome, sobrenome, email e senha são obrigatórios");
-            return null;
+            $this->message->warning("Nome, email e senha são obrigatórios");
+            return false;
         }
 
         if (!isEmail($this->email)) {
             $this->message->warning("O e-mail informado não tem um formato válido");
-            return null;
+            return false;
         }
 
-        if (!is_passwd($this->password)) {
+        if (!isPasswd($this->password)) {
             $min = CONF_PASSWD_MIN_LEN;
             $max = CONF_PASSWD_MAX_LEN;
             $this->message->warning("A senha deve ter entre {$min} e {$max} caracteres");
-            return null;
+            return false;
         } else {
             $this->password = passwd($this->password);
         }
@@ -82,51 +81,49 @@ class User extends Model
         if (!empty($this->id)) {
             $userId = $this->id;
 
-            if ($this->find("email = :e AND id != :i", "e={$this->email}&i={$userId}")) {
+            if ($this->find("email = :e AND id != :i", "e={$this->email}&i={$userId}", "id")->fetch()) {
                 $this->message->warning("O e-mail informado já está cadastrado");
-                return null;
+                return false;
             }
 
-            $this->update(self::$entity, $this->safe(), "id = :id", "id={$userId}");
+            $this->update($this->safe(), "id = :id", "id={$userId}");
             if ($this->fail()) {
                 $this->message->error("Erro ao atualizar, verifique os dados");
-                return null;
+                return false;
             }
         }
 
         /** User Create */
         if (empty($this->id)) {
-            if ($this->findByEmail($this->email)) {
+            if ($this->findByEmail($this->email, "id")) {
                 $this->message->warning("O e-mail informado já está cadastrado");
-                return null;
+                return false;
             }
 
-            $userId = $this->create(self::$entity, $this->safe());
+            $userId = $this->create($this->safe());
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
-                return null;
+                return false;
             }
         }
 
         $this->data = ($this->findById($userId))->data();
-        return $this;
+        return true;
     }
 
-    /**
-     * @return null|User
-     */
-    public function destroy(): ?User
+    public function destroy(): bool
     {
-        if (!empty($this->id)) {
-            $this->delete(self::$entity, "id = :id", "id={$this->id}");
+        if (!empty($this->image)) {
+            $upload = new Upload();
+            $upload->remove($this->image);
         }
-
+        $this->delete('id', $this->id);
         if ($this->fail()) {
-            $this->message->error("Não foi possível remover o usuário");
-            return null;
+            $this->message = $this->message
+                ->error($this->fail()->getMessage())
+                ->dismissable();
+            return false;
         }
-
-        $this->data = null;
-        return $this;
+        return true;
     }
 }

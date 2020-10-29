@@ -84,7 +84,7 @@ define("CONF_VIEW_THEME_ADMIN", "admin");
 /**
  * UPLOAD
  */
-define("CONF_UPLOAD_DIR", "../storage");
+define("CONF_UPLOAD_DIR", "storage");
 define("CONF_UPLOAD_IMAGE_DIR", "images");
 define("CONF_UPLOAD_FILE_DIR", "files");
 define("CONF_UPLOAD_MEDIA_DIR", "medias");

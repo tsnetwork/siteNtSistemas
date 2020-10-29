@@ -1,0 +1,21 @@
+
+.loading{
+    content: "";
+    display: none;
+    text-align: center;
+    justify-content: ce;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 0 10px -6px 0;
+    border: 3px solid #eee;
+    border-top-color: #4334c4;
+    -webkit-animation: animate-loading 1s linear infinite;
+    animation: animate-loading 1s linear infinite;
+}
+
+@keyframes animate-loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
