@@ -140,7 +140,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-lg-3 col-md-6 footer-contact">
+        <div class="col-lg-4 col-md-6 footer-contact">
           <img src="<?=theme(CONF_VIEW_THEME, "assets/img/theme/logo.png")?>" width="200px" alt="">
           <br><br><br>
           <p>
@@ -165,7 +165,7 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-6 footer-newsletter">
+        <div class="col-lg-3 col-md-6 footer-newsletter">
           <h4>Receba nossas Newsletter</h4>
 
           <form action="" method="post">
@@ -188,6 +188,9 @@
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        <a href="https://api.whatsapp.com/send?phone=<?=CONF_SOCIAL_WHATSAPP?>" class="whatsapp">
+          <i class='bx bxl-whatsapp'></i>
+        </a>
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
         <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
