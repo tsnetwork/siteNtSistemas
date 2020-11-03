@@ -220,7 +220,7 @@
             <!-- User Account: style can be found in dropdown.less -->
             <li class="user user-menu">
               <a>
-                <img src="<?=image($activeUser->image ?? 'images/defaults/user_icon.png', 50, 50)?>" class="user-image" alt="User Image">
+                <img src="<?=image($activeUser->image, 50, 50)?>" class="user-image" alt="User Image">
                 <span class="hidden-xs"><?=$activeUser->name?></span>
               </a>
 

@@ -12,7 +12,7 @@
                         <div class="edit-icon text-center">
                             <i class="fa fa-camera fa-2x" aria-hidden="true"></i>
                         </div>
-                        <img src="<?=image($user->image ?? 'images/defaults/user_icon.png', 100, 100)?>"
+                        <img src="<?=image($user->image, 100, 100)?>"
                             id="form_image" class="img-circle user-image">
                     </div>
                 </div>

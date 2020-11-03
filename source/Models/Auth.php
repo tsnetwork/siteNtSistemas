@@ -56,6 +56,8 @@ class Auth extends Model
                 return false;
             }
             $user->image = $imagePath;
+        } else {
+            $user->image = 'images/defaults/user_icon.png';
         }
         if (!$user->save()) {
             $this->message = $user->message;
@@ -69,7 +71,7 @@ class Auth extends Model
         $oldImage = (new User())->findById($user->id, 'image')->image;
         $upload   = new Upload();
         if ($user->image != $oldImage) {
-            if ($oldImage) {
+            if ($oldImage && $oldImage != 'images/defaults/user_icon.png') {
                 $upload->remove($oldImage);
             }
             $imagePath = $upload->image($user->image, strSlug(time() . " profile image"));

@@ -18,7 +18,7 @@
             <?php foreach ($users as $user): ?>
             <div class="col-xs-12 bg-gray-light user-card">
                 <div class="image pull-left user-card-image">
-                    <img src="<?=image($user->image ?? 'images/defaults/user_icon.png', 50, 50)?>"
+                    <img src="<?=image($user->image, 50, 50)?>"
                         alt="User Image" class="img-circle bg-black" >
                 </div>
                 <div class="user-card-body">
