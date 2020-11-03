@@ -23,6 +23,11 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+/*
+    Inserção do usuário padrão
+    email: admin@sistema.dev.br
+    senha: Admin@1234
+*/
 INSERT INTO `users`
 (`name`, `email`, `image`, `password`)
 VALUES('Admin', 'admin@sistema.dev.br', 'images/defaults/user_icon.png', '$2y$10$sKMqZzVopaWuQpu45bPxWef/MTDA8PAPEUNnKDkQUG9aNC/AdL8Cq');
