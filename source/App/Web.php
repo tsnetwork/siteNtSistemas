@@ -35,7 +35,6 @@ class Web extends Controller
             url(),
             theme(CONF_VIEW_THEME, "/assets/img/about.jpg")
         );
-        echo passwd("Admin@1234");
         echo $this->view->render("views/home", [
             "head" => $head,
         ]);

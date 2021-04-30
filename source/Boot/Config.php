@@ -5,7 +5,7 @@
  */
 define("CONF_DB_HOST", "db");
 define("CONF_DB_USER", "root");
-define("CONF_DB_PASS", "roo");
+define("CONF_DB_PASS", "root");
 define("CONF_DB_NAME", "site");
 
 /**
