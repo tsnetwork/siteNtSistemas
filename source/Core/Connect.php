@@ -21,6 +21,10 @@ class Connect
     /** @var \PDO */
     private static $instance;
 
+    /** @var string */
+    public static $error; 
+
+
     /**
      * @return \PDO|null
      */
@@ -35,11 +39,16 @@ class Connect
                     self::OPTIONS
                 );
             } catch (\PDOException $exception) {
+                self::$error = $exception->getMessage();
                 redirect("/ops/problemas");
             }
         }
 
         return self::$instance;
+    }
+    
+    public static function getErrors(){
+        return self::$error ?? null;
     }
 
     /**

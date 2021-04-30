@@ -34,7 +34,11 @@
     </head>
 
     <body>
+        <?= $v->insert('components/navbar') ?>
+
         <?=$v->section('content')?>
+
+        <?=$v->insert('components/footer') ?>
 
         <script src="<?=theme(CONF_VIEW_THEME, "assets/scripts.js")?>"></script>
         <!-- Vendor JS Files -->

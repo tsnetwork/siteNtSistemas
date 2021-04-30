@@ -5,14 +5,14 @@
  */
 define("CONF_DB_HOST", "db");
 define("CONF_DB_USER", "root");
-define("CONF_DB_PASS", "root");
+define("CONF_DB_PASS", "roo");
 define("CONF_DB_NAME", "site");
 
 /**
  * PROJECT URLs
  */
-define("CONF_URL_BASE", "http://192.168.0.251/site");
-define("CONF_URL_TEST", "http://www.localhost/site");
+define("CONF_URL_BASE", "http://localhost/site");
+define("CONF_URL_TEST", "http://localhost/site");
 define("CONF_URL_ADMIN", "/admin");
 
 /**

@@ -40,6 +40,14 @@ $route->get("/sair", "Admin:logout");
 $route->get("/login", "Web:login");
 $route->post("/login", "Web:login");
 
+
+$route->group('/ops');
+$route->get('/{errCode}',"Web:error");
+
+if($route->error()){
+  redirect("/ops/{$route->error()}");
+}
+
 /*
  * ROUTE
  */
