@@ -1,5 +1,5 @@
 <?php $v->layout("_theme") ?>
-
+<div id="hero">
 	<div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
@@ -10,5 +10,7 @@
 			<a href="<?=url()?>"><span class="arrow"></span>Voltar à Pagina Inicial</a>
 		</div>
 	</div>
+</div>
+	
 
 <!-- This templates was made by Colorlib (https://colorlib.com) -->

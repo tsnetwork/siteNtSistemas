@@ -44,13 +44,18 @@ $route->post("/login", "Web:login");
 $route->group('/ops');
 $route->get('/{errCode}',"Web:error");
 
-if($route->error()){
-  redirect("/ops/{$route->error()}");
-}
-
 /*
  * ROUTE
  */
 $route->dispatch();
+
+
+/**
+ * ERROR REDIRECT
+ */
+if ($route->error()) {
+  $route->redirect("/ops/{$route->error()}");
+}
+
 
 ob_end_flush();

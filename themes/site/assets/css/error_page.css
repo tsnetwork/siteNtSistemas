@@ -8,12 +8,12 @@ body {
   margin: 0;
 }
 
-#notfound {
+#hero #notfound {
   position: relative;
   height: 100vh;
 }
 
-#notfound .notfound {
+#hero #notfound .notfound {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -22,7 +22,7 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.notfound {
+#hero .notfound {
   max-width: 710px;
   width: 100%;
   text-align: center;
@@ -30,46 +30,38 @@ body {
   line-height: 1.4;
 }
 
-.notfound .notfound-404 {
+#notfound .notfound .notfound-404 {
   height: 200px;
   line-height: 200px;
 }
 
-.notfound .notfound-404 h1 {
-  font-size: 168px;
-  margin: 0px;
-  color: #7b27d8;
+#notfound .notfound .notfound-404 h1 {
+  font-size: 168px!important;
   text-transform: uppercase;
+  line-height: 1.2;
 }
 
-.notfound h2 {
+#notfound .notfound h2 {
   font-size: 22px;
   font-weight: 400;
   text-transform: uppercase;
-  color: #222;
   margin: 0;
 }
-
-.notfound-search {
-  position: relative;
-  padding-right: 123px;
-  max-width: 420px;
-  width: 100%;
-  margin: 30px auto 22px;
+#notfound .notfound p {
+  color: white;
 }
-
-.notfound a {
+#notfound .notfound a {
   display: inline-block;
   font-weight: 700;
   border-radius: 15px;
   text-decoration: none;
-  color: #902eff;
+  color: white;
 }
 
-.notfound a>.arrow {
+#notfound .notfound a>.arrow {
   position: relative;
   top: -2px;
-  border: solid #902eff;
+  border: solid white;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
@@ -79,11 +71,11 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 {
+  #notfound .notfound .notfound-404 {
     height: 122px;
     line-height: 122px;
   }
-  .notfound .notfound-404 h1 {
+  #notfound .notfound .notfound-404 h1 {
     font-size: 122px;
   }
 }
