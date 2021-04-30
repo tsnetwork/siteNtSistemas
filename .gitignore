@@ -7520,5 +7520,5 @@ themes/admin/plugins/timepicker/bootstrap-timepicker.css
 themes/admin/plugins/timepicker/bootstrap-timepicker.js
 themes/admin/plugins/timepicker/bootstrap-timepicker.min.css
 themes/admin/plugins/timepicker/bootstrap-timepicker.min.js
-.vscode/sftp.json
+.vscode
 source/Boot/Config.php
